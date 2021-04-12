@@ -9,14 +9,16 @@ import buyCake from "./store/action";
 export default function App() {
   const store = createStore(reducer);
   console.log("Initial state", store.getState());
-  store.dispatch(buyCake());
-  console.log("Updated state", store.getState());
-  store.dispatch(buyCake());
-  console.log("Updated state", store.getState());
-  store.dispatch(buyCake());
-  console.log("Updated state", store.getState());
 
-  // store.subscribe();
+  const unsubscribe = store.subscribe(() => {
+    console.log("Updated state", store.getState());
+  });
+
+  store.dispatch(buyCake());
+  store.dispatch(buyCake());
+  store.dispatch(buyCake());
+
+  unsubscribe();
 
   return (
     <div className="App">
